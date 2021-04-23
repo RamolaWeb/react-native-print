@@ -122,7 +122,8 @@ public class RNPrintModule extends ReactContextBaseJavaModule {
                         });
 
                         webView.loadDataWithBaseURL(null, html, "text/HTML", "UTF-8", null);
-
+                        webView.getSettings().setJavaScriptEnabled(true);
+                        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
                         // Keep a reference to WebView object until you pass the PrintDocumentAdapter
                         // to the PrintManager
                         mWebView = webView;
