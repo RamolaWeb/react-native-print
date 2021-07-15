@@ -89,9 +89,6 @@ RCT_EXPORT_METHOD(print:(NSDictionary *)options
         _isLandscape = [[RCTConvert NSNumber:options[@"isLandscape"]] boolValue];
     }
     
-    if ((_filePath && _htmlString) || (_filePath == nil && _htmlString == nil)) {
-        reject(RCTErrorUnspecified, nil, RCTErrorWithMessage(@"Must provide either `html` or `filePath`. Both are either missing or passed together"));
-    }
     
     __block NSData *printData;
     BOOL isValidURL = NO;
