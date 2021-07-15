@@ -27,7 +27,8 @@ RCT_EXPORT_MODULE();
     
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    WKWebView *wkWebView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:configuration];
+    WKWebView *wkWebView = [[WKWebView alloc] initWithFrame:self.bounds configuration:configuration];
+    [self addSubview:wkWebView];
     wkWebView.navigationDelegate = self;
     
     [wkWebView loadHTMLString:_htmlString baseURL:nil];
