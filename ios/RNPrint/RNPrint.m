@@ -25,6 +25,13 @@ RCT_EXPORT_MODULE();
     UIPrintInteractionController *printInteractionController = [UIPrintInteractionController sharedPrintController];
     printInteractionController.delegate = self;
     
+    
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    WKWebView *wkWebView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:configuration];
+    wkWebView.navigationDelegate = self;
+    
+    [wkWebView loadHTMLString:_htmlString baseURL:nil];
+    
     // Create printing info
     UIPrintInfo *printInfo = [UIPrintInfo printInfo];
     
@@ -37,7 +44,7 @@ RCT_EXPORT_MODULE();
     printInteractionController.showsPageRange = YES;
     
     if (_htmlString) {
-        UIMarkupTextPrintFormatter *formatter = [[UIMarkupTextPrintFormatter alloc] initWithMarkupText:_htmlString];
+        UIViewPrintFormatter *formatter = [wkWebView viewPrintFormatter];
         printInteractionController.printFormatter = formatter;
     } else {
         printInteractionController.printingItem = data;
