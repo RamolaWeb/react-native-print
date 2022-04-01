@@ -92,27 +92,41 @@ public class RNPrintModule extends ReactContextBaseJavaModule {
                                                                                                                  Context.PRINT_SERVICE);
                                 // Create a wrapper PrintDocumentAdapter to clean up when done.
                                 PrintDocumentAdapter adapter = new PrintDocumentAdapter() {
-                                    private final PrintDocumentAdapter mWrappedInstance =
-                                    mWebView.createPrintDocumentAdapter(jobName);
+                                    private final PrintDocumentAdapter mWrappedInstance = null;
+
+                                    if (mWebView != null) {
+                                        mWebView.createPrintDocumentAdapter(jobName);
+                                    }
+                                    
                                     @Override
                                     public void onStart() {
-                                        mWrappedInstance.onStart();
+                                        if (mWrappedInstance != null) {
+                                          mWrappedInstance.onStart();
+                                        }
                                     }
                                     @Override
                                     public void onLayout(PrintAttributes oldAttributes, PrintAttributes newAttributes,
                                                          CancellationSignal cancellationSignal, LayoutResultCallback callback,
                                                          Bundle extras) {
-                                        mWrappedInstance.onLayout(oldAttributes, newAttributes, cancellationSignal,
-                                                                  callback, extras);
+																				if (mWrappedInstance != null) {
+																					mWrappedInstance.onLayout(oldAttributes, newAttributes, cancellationSignal,
+																							callback, extras);
+																				}
+                                        
                                     }
                                     @Override
                                     public void onWrite(PageRange[] pages, ParcelFileDescriptor destination,
                                                         CancellationSignal cancellationSignal, WriteResultCallback callback) {
-                                        mWrappedInstance.onWrite(pages, destination, cancellationSignal, callback);
+																													if (mWrappedInstance != null) {
+																															mWrappedInstance.onWrite(pages, destination, cancellationSignal, callback);
+																													}
+                                        
                                     }
                                     @Override
                                     public void onFinish() {
-                                        mWrappedInstance.onFinish();
+																			if (mWrappedInstance != null) {
+																				mWrappedInstance.onFinish();
+																			}
                                         promise.resolve(jobName);
                                     }
                                 };
